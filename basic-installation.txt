@@ -1,0 +1,14 @@
+# Postgres install
+
+copy the pgdg file to the system
+
+yum localinstall pgdg....
+yum install postgresql93-server -y
+yum install postgresql93-contrib -y
+yum install pgcluu -y
+yum install pgtune -y
+
+service postgresql-9.3 initdb
+chkconfig postgresql-9.3 on
+service postgresql-9.3 start
+

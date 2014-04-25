@@ -1,0 +1,2 @@
+Basice postgresql setup information
+
