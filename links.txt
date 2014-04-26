@@ -1,0 +1,7 @@
+# Postgres Links
+
+http://yum.postgresql.org/repopackages.php
+
+http://www.postgresql.org/download/linux/redhat/
+
+http://sourcefreedom.com/tuning-postgresql-9-0-with-pgtune/
