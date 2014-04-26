@@ -12,3 +12,35 @@ service postgresql-9.3 initdb
 chkconfig postgresql-9.3 on
 service postgresql-9.3 start
 
+
+# Run pgtune
+# Put the pgtune values in to the postgresql.conf
+# make sure to modify auto vacuum and set it on
+# make sure to alter the listen_addresses parameter as needed
+# Add firewall rules to allow access to the 5432 port
+# Firewall rules something similar to:
+-A INPUT -p tcp --dport 5432 -m state --state NEW,ESTABLISHED -j ACCEPT
+or
+-A INPUT -p tcp -m tcp --dport 5432 -j ACCEPT 
+
+
+# add an application role (a place to give all the grants)
+CREATE ROLE "dead_squirrel_role";
+CREATE ROLE "command_line_role";
+CREATE ROLE "total_bs_role";
+
+# add a database user and grant them the appropriate application role
+CREATE ROLE "dead_squirrel_svc";
+CREATE ROLE "command_line_svc";
+CREATE ROLE "total_bs_svc";
+
+
+CREATE ROLE "dead_squirrel_svc" WITH LOGIN CONNECTION LIMIT 10 PASSWORD 'dsS3rv!c3us3r' IN ROLE "dead_squirrel_role";
+CREATE ROLE "command_line_svc" WITH LOGIN CONNECTION LIMIT 20 PASSWORD 'c0mm@ndl!n3' IN ROLE "command_line_role";
+CREATE ROLE "total_bs_svc" WITH LOGIN CONNECTION LIMIT 10 PASSWORD 't0t@lBSsup3rus3r' IN ROLE "total_bs_role";
+
+
+
+# modify pg_hba.conf to all the user/application nodes to connect
+# load any additional plug-ins or contrib modules
+
